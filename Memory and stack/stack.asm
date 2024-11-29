@@ -14,7 +14,7 @@ _start:
   mov %edx,4
   int 0x80
 
-
+  ;exit code
   mov %eax,1
   mov %ebx,69
   int 0x80
