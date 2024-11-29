@@ -14,8 +14,8 @@ _start:
   mov %edx,100
   int 0x80
 
-  mov %eax,4
-  mov %ebx,1
+
+
   lea %ecx,[buffer]
   mov %edx,100
   int 0x80
