@@ -2,12 +2,14 @@
 .intel_syntax noprefix 
 
 .section .data
-  first_num :.ascii "Enter first number: \n"
+  first_num :.ascii "Enter first number: "
   f_len     =.-first_num
-  second_num:.ascii "Enter second number: \n"
+  second_num:.ascii "Enter second number: "
   s_len     =.-second_num
-  operation :.ascii "Enter the operation to be performed: \n"
+  operation :.ascii "Enter the operation to be performed: "
   op_len    =.-operation
+  sol_prom  :.ascii "The solution is: "
+  sol_len   =.-sol_prom
   buffer    : .byte 0 
 
 .section .bss
@@ -66,6 +68,12 @@ _start:
   mov  edx, 1 
   int 0x80 
  
+  #Write the solution prom 
+  mov eax, 4
+  mov ebx, 1 
+  lea ecx, [sol_prom]
+  mov edx, sol_len
+  int 0x80
 
   #Do the math 
   mov  al, [buffer]
@@ -88,7 +96,7 @@ addition:
   mov  eax, 4
   mov  ebx, 1 
   lea  ecx, [solution]
-  mov  edx, 16
+  mov  edx, 1
   int  0x80
   call exit_code
 
@@ -101,6 +109,7 @@ int_to_string:
 
 convert_digit:
   xor  edx, edx
+  div  ebx 
   add  dl,'0'
   push dx
   inc  esi 
